@@ -1,28 +1,63 @@
+// package main
+
+// import (
+// 	"fmt"
+// 	"time"
+// )
+
+// func sayHello() {
+// 	fmt.Println("Hello, world!")
+// 	// time.Sleep(2000 * time.Millisecond) // Simulating some work
+// 	fmt.Println("sayHello function ended successfully")
+// }
+
+// func sayHi() {
+// 	fmt.Println("Hi Prince :)")
+// 	time.Sleep(1000 * time.Millisecond) // Simulating some work
+// 	fmt.Println("Hi Prince Function ended:)")
+// }
+
+// func main() {
+// 	fmt.Println("learning goroutines")
+
+// 	go sayHello()
+// 	go sayHi()
+
+// 	// Wait for a moment to allow the goroutine to finish
+// 	time.Sleep(800 * time.Millisecond)
+// }
+
+// **** If you mean print 1 to 10 in Go using a goroutine, here is the simple version: ***
 package main
 
 import (
 	"fmt"
-	"time"
+	"sync"
 )
 
-func sayHello() {
-	fmt.Println("Hello, world!")
-	// time.Sleep(2000 * time.Millisecond) // Simulating some work
-	fmt.Println("sayHello function ended successfully")
-}
+func printNumber(wg *sync.WaitGroup) {
 
-func sayHi() {
-	fmt.Println("Hi Prince :)")
-	time.Sleep(1000 * time.Millisecond) // Simulating some work
-	fmt.Println("Hi Prince Function ended:)")
+	defer wg.Done()
+	for i := 1; i <= 10; i++ {
+		fmt.Println(i)
+	}
 }
 
 func main() {
-	fmt.Println("learning goroutines")
+	var wg sync.WaitGroup
 
-	go sayHello()
-	go sayHi()
+	wg.Add(1)
 
-	// Wait for a moment to allow the goroutine to finish
-	time.Sleep(800 * time.Millisecond)
+	fmt.Println("print number 1 to 10 using gorutine")
+	go printNumber(&wg)
+
+	wg.Wait()
+
 }
+
+
+// *** Printing 1 to 10 using two goroutines
+
+
+
+
